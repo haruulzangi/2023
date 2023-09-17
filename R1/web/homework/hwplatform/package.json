@@ -1,0 +1,22 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2",
+    "express-recaptcha": "*",
+    "isomorphic-fetch": "*",
+    "nunjucks": "^3.2.3",
+    "puppeteer": "^13.3.2"
+  }
+}
