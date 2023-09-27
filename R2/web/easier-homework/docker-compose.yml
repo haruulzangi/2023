@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: unless-stopped
+    environment:
+      - FLAG=HZ{FAKE_FLAG}
+    ports:
+      - "0.0.0.0:1337:1337"

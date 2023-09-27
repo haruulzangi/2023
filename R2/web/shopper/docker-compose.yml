@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  node:
+    build:
+      context: .
+    restart: unless-stopped
+    environment:
+      - FLAG=HZ{FAKE_FLAG}
+      - APP_SECRET=8tTXPilYZiI8lO2p1lUO3sWEGRJ9V9zLeA4Y3k3zP08
+    volumes:
+      - ./data:/usr/src/app/data
