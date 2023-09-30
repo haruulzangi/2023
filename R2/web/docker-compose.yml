@@ -1,8 +1,8 @@
-version: '3.8'
+version: "3.8"
 services:
-  node:
+  shopper:
     build:
-      context: .
+      context: ./shopper
     restart: unless-stopped
     environment:
       - FLAG=HZ{FAKE_FLAG}
@@ -15,6 +15,18 @@ services:
       - "traefik.http.routers.shopper.rule=Host(`shopper.challenge.haruulzangi.mn`)"
       - "traefik.http.routers.shopper.entrypoints=websecure"
       - "traefik.http.routers.shopper.tls.certresolver=myresolver"
+  easier-hw:
+    build:
+      context: ./easier-homework
+    restart: unless-stopped
+    environment:
+      - FLAG=HZ{FAKE_FLAG}
+    networks: [traefik]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.easier-hw.rule=Host(`easier-hw.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.easier-hw.entrypoints=websecure"
+      - "traefik.http.routers.easier-hw.tls.certresolver=myresolver"
 networks:
   traefik:
     external: true
