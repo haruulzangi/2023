@@ -7,7 +7,6 @@ services:
       BOT_TOKEN_FILE: /run/secrets/mathbot_token
     secrets:
       - mathbot_token
-    networks: [traefik_proxy]
 secrets:
   mathbot_token:
     file: ./token.secret
