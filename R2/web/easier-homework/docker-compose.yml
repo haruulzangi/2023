@@ -7,5 +7,9 @@ services:
     restart: unless-stopped
     environment:
       - FLAG=HZ{FAKE_FLAG}
-    ports:
-      - "0.0.0.0:1337:1337"
+    networks: [traefik]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.easier-hw.rule=Host(`easier-hw.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.easier-hw.entrypoints=websecure"
+      - "traefik.http.routers.easier-hw.tls.certresolver=myresolver"
