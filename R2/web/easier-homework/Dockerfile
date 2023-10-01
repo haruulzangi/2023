@@ -1,4 +1,4 @@
-FROM node:18
+FROM ghcr.io/puppeteer/puppeteer:21.3.4
 
 WORKDIR /usr/src/app
 
