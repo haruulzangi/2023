@@ -27,11 +27,7 @@ def start_bot(token: str):
     app.add_handler(CommandHandler("calculate", _calculate))
     app.add_handler(CommandHandler("start", _start))
     print("Bot is ready to run!")
-    app.run_webhook(
-        listen="0.0.0.0",
-        port="8080",
-        webhook_url="https://tonogram.challenge.haruulzangi.mn",
-    )
+    app.run_polling()
 
 
 __all__ = ["start_bot"]

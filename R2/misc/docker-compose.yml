@@ -7,11 +7,6 @@ services:
       BOT_TOKEN_FILE: /run/secrets/mathbot_token
     secrets:
       - mathbot_token
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tonogram.rule=Host(`tonogram.challenge.haruulzangi.mn`)"
-      - "traefik.http.routers.tonogram.entrypoints=websecure"
-      - "traefik.http.routers.tonogram.tls.certresolver=myresolver"
 secrets:
   mathbot_token:
     file: ./token.secret
