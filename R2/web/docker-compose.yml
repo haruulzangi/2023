@@ -5,7 +5,7 @@ services:
       context: ./shopper
     restart: unless-stopped
     environment:
-      - FLAG=HZ{FAKE_FLAG}
+      - FLAG=HZ2023{b3w@r3:L0g1c_vuln}
       - APP_SECRET=8tTXPilYZiI8lO2p1lUO3sWEGRJ9V9zLeA4Y3k3zP08
     volumes:
       - ./data:/usr/src/app/data
@@ -20,7 +20,7 @@ services:
       context: ./easier-homework
     restart: unless-stopped
     environment:
-      - FLAG=HZ{FAKE_FLAG}
+      - FLAG=HZ2023{G1t_l1f3_x_jsd3lIvr}
     networks: [traefik]
     labels:
       - "traefik.enable=true"
