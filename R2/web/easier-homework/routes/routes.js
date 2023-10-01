@@ -24,7 +24,7 @@ router.get("/report", (req, res) => {
 router.post("/report", recaptcha.middleware.verify, async (req, res) => {
   try {
 
-    await visit(`http://127.0.0.1/?note=${req.body.note}`, authSecret);
+    await visit(`http://127.0.0.1:1337/?note=${req.body.note}`, authSecret);
 
   } catch (e) {
     console.log(e);
