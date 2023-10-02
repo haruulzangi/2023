@@ -17,5 +17,26 @@ func (app *App) HandleConnection(conn *tls.Conn) {
 		return
 	}
 
+	session := &Session{conn: conn}
 	log.WithField("address", conn.RemoteAddr().String()).Info("New connection")
+	for {
+		cmd, err := session.readMessage()
+		if err != nil {
+			log.WithField("address", conn.RemoteAddr().String()).Error("Failed to read message: ", err)
+			return
+		}
+
+		switch string(cmd) {
+		case "PING":
+			err = session.sendMessage([]byte("PONG"))
+			if err != nil {
+				log.WithField("address", conn.RemoteAddr().String()).Error("Failed to send message: ", err)
+				return
+			}
+			break
+		default:
+			log.WithField("address", conn.RemoteAddr().String()).Error("Unknown command: ", string(cmd))
+			return
+		}
+	}
 }
