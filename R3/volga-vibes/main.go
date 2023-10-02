@@ -19,6 +19,9 @@ func main() {
 	if port == "" {
 		port = "3000"
 	}
+	if level, err := log.ParseLevel(os.Getenv("LOG_LEVEL")); err == nil {
+		log.SetLevel(level)
+	}
 
 	caCertPool := x509.NewCertPool()
 	caCertFile, err := os.ReadFile("./certs/ca.crt")
