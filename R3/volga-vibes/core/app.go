@@ -21,6 +21,10 @@ func (app *App) Init(dbPath string) (*App, error) {
 	return app, nil
 }
 
+func (app *App) Close() {
+	app.db.Close()
+}
+
 func (app *App) HandleConnection(conn *tls.Conn) {
 	defer conn.Close()
 	err := conn.Handshake()
@@ -48,7 +52,6 @@ func (app *App) HandleConnection(conn *tls.Conn) {
 				log.WithField("address", conn.RemoteAddr().String()).Error("Failed to send message: ", err)
 				return
 			}
-			break
 		default:
 			log.WithField("address", conn.RemoteAddr().String()).Error("Unknown command: ", string(cmd))
 			return
