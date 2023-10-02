@@ -21,11 +21,27 @@ func (app *App) Init(dbPath string) (*App, error) {
 	return app, nil
 }
 
+func (app *App) ListenAndServe(address string, tlsConfig *tls.Config) error {
+	listener, err := tls.Listen("tcp", address, tlsConfig)
+	if err != nil {
+		return err
+	}
+
+	log.Info("Server listening on ", listener.Addr().String())
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			continue
+		}
+		go app.handleConnection(conn.(*tls.Conn))
+	}
+}
+
 func (app *App) Close() {
 	app.db.Close()
 }
 
-func (app *App) HandleConnection(conn *tls.Conn) {
+func (app *App) handleConnection(conn *tls.Conn) {
 	defer conn.Close()
 	err := conn.Handshake()
 	if err != nil {

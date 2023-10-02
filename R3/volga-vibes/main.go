@@ -46,17 +46,8 @@ func main() {
 		MinVersion:   tls.VersionTLS12,
 		Certificates: []tls.Certificate{cert},
 	}
-	listener, err := tls.Listen("tcp", fmt.Sprintf("%s:%s", host, port), tlsConfig)
+	err = app.ListenAndServe(fmt.Sprintf("%s:%s", host, port), tlsConfig)
 	if err != nil {
 		log.Panic("Failed to listen: ", err)
-	}
-	log.Info("Server listening on ", listener.Addr().String())
-
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			continue
-		}
-		go app.HandleConnection(conn.(*tls.Conn))
 	}
 }
