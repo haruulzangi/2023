@@ -2,6 +2,7 @@ package core
 
 import (
 	"crypto/tls"
+	"io"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -22,7 +23,9 @@ func (app *App) HandleConnection(conn *tls.Conn) {
 	for {
 		cmd, err := session.readMessage()
 		if err != nil {
-			log.WithField("address", conn.RemoteAddr().String()).Error("Failed to read message: ", err)
+			if err != io.EOF {
+				log.WithField("address", conn.RemoteAddr().String()).Error("Failed to read message: ", err)
+			}
 			return
 		}
 
