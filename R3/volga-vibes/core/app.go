@@ -4,10 +4,21 @@ import (
 	"crypto/tls"
 	"io"
 
+	"github.com/dgraph-io/badger/v4"
 	log "github.com/sirupsen/logrus"
 )
 
 type App struct {
+	db *badger.DB
+}
+
+func (app *App) Init(dbPath string) (*App, error) {
+	var err error
+	app.db, err = badger.Open(badger.DefaultOptions(dbPath))
+	if err != nil {
+		return nil, err
+	}
+	return app, nil
 }
 
 func (app *App) HandleConnection(conn *tls.Conn) {

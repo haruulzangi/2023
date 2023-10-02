@@ -23,6 +23,11 @@ func main() {
 		log.SetLevel(level)
 	}
 
+	app, err := new(core.App).Init("./data/app.badger")
+	if err != nil {
+		log.Panic("Failed to open database: ", err)
+	}
+
 	caCertPool := x509.NewCertPool()
 	caCertFile, err := os.ReadFile("./certs/ca.crt")
 	if err != nil {
@@ -47,7 +52,6 @@ func main() {
 	}
 	log.Info("Server listening on ", listener.Addr().String())
 
-	app := new(core.App)
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
