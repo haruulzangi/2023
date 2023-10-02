@@ -50,6 +50,6 @@ func main() {
 		if err != nil {
 			continue
 		}
-		go app.HandleConnection(conn)
+		go app.HandleConnection(conn.(*tls.Conn))
 	}
 }
