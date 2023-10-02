@@ -1,5 +1,6 @@
 import ssl
 import socket
+import struct
 
 
 class Socket:
@@ -32,3 +33,12 @@ class Socket:
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.close()
+
+    def send_message(self, data: bytes):
+        size = len(data)
+        self.connection.sendall(struct.pack(">I", size))
+        self.connection.sendall(data)
+
+    def read_message(self) -> bytes:
+        size = struct.unpack(">I", self.connection.recv(4))[0]
+        return self.connection.recv(size)
