@@ -29,6 +29,7 @@ func (app *App) HandleConnection(conn *tls.Conn) {
 			return
 		}
 
+		log.Trace("Received command: ", string(cmd))
 		switch string(cmd) {
 		case "PING":
 			err = session.sendMessage([]byte("PONG"))
