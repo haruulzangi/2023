@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
 	"os"
+	"os/signal"
 
 	"github.com/haruulzangi/2023/R3/volga-vibes/core"
 	log "github.com/sirupsen/logrus"
@@ -27,6 +29,7 @@ func main() {
 	if err != nil {
 		log.Panic("Failed to open database: ", err)
 	}
+	defer app.Close()
 
 	caCertPool := x509.NewCertPool()
 	caCertFile, err := os.ReadFile("./certs/ca.crt")
@@ -46,7 +49,11 @@ func main() {
 		MinVersion:   tls.VersionTLS12,
 		Certificates: []tls.Certificate{cert},
 	}
-	err = app.ListenAndServe(fmt.Sprintf("%s:%s", host, port), tlsConfig)
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+
+	err = app.ListenAndServe(ctx, fmt.Sprintf("%s:%s", host, port), tlsConfig)
 	if err != nil {
 		log.Panic("Failed to listen: ", err)
 	}

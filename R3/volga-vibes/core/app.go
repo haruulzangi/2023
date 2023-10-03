@@ -1,44 +1,47 @@
 package core
 
 import (
+	"context"
 	"crypto/tls"
 	"io"
 
-	"github.com/dgraph-io/badger/v4"
 	log "github.com/sirupsen/logrus"
 )
 
-type App struct {
-	db *badger.DB
-}
-
-func (app *App) Init(dbPath string) (*App, error) {
+func (app *App) listen(address string, tlsConfig *tls.Config) (chan *tls.Conn, error) {
 	var err error
-	app.db, err = badger.Open(badger.DefaultOptions(dbPath))
+	app.listener, err = tls.Listen("tcp", address, tlsConfig)
 	if err != nil {
 		return nil, err
 	}
-	return app, nil
+	log.Info("Server listening on ", app.listener.Addr().String())
+
+	ch := make(chan *tls.Conn)
+	go func() {
+		for {
+			conn, err := app.listener.Accept()
+			if err != nil {
+				continue
+			}
+			ch <- conn.(*tls.Conn)
+		}
+	}()
+	return ch, nil
 }
 
-func (app *App) ListenAndServe(address string, tlsConfig *tls.Config) error {
-	listener, err := tls.Listen("tcp", address, tlsConfig)
+func (app *App) ListenAndServe(ctx context.Context, address string, tlsConfig *tls.Config) error {
+	incomingChan, err := app.listen(address, tlsConfig)
 	if err != nil {
 		return err
 	}
-
-	log.Info("Server listening on ", listener.Addr().String())
 	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			continue
+		select {
+		case conn := <-incomingChan:
+			go app.handleConnection(conn)
+		case <-ctx.Done():
+			return nil
 		}
-		go app.handleConnection(conn.(*tls.Conn))
 	}
-}
-
-func (app *App) Close() {
-	app.db.Close()
 }
 
 func (app *App) handleConnection(conn *tls.Conn) {
