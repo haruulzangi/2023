@@ -11,6 +11,7 @@ db.execute(
 )
 
 tag_size = 16
+timeout = 5
 
 
 def pull(socket: Socket, game_round: int, box_id: str) -> bool:
@@ -140,6 +141,7 @@ def run_checker(
                 # Send False if box is up, True if box is down, API quirks ¯\_(ツ)_/¯
                 "status": not status,
             },
+            timeout=timeout,
         )
         if resp.status_code != 200:
             logging.error(f"API returned {resp.status_code} status code")
