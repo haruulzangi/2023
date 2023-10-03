@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  volga-vibes:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - volga-vibes-data:/app/data
+volumes:
+  volga-vibes-data: {}
