@@ -59,4 +59,6 @@ func main() {
 	if err != nil {
 		log.Panic("Failed to listen: ", err)
 	}
+
+	log.Info("Server stopping...")
 }
