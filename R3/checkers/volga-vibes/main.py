@@ -42,7 +42,7 @@ def main():
             flag = box["flag"]
             thread = threading.Thread(
                 target=run_checker,
-                args=(host, port, game_round, box_id, challenge_id, flag),
+                args=(host, port, game_round, box_id, challenge_id, flag, auth_token),
             )
             thread.start()
             threads.append(thread)
