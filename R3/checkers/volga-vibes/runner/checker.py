@@ -5,7 +5,7 @@ import logging
 import requests
 from .socket import Socket
 
-db = sqlite3.connect("volga-vibes-checker.sqlite3")
+db = sqlite3.connect("volga-vibes-checker.sqlite3", check_same_thread=False)
 db.execute(
     "CREATE TABLE IF NOT EXISTS flags (round INT, flag TEXT, flag_id BLOB, ciphertext BLOB, box_id TEXT)"
 )
