@@ -112,6 +112,7 @@ def _run_check(host: str, port: int, game_round: int, box_id: str, flag: str):
                 return False
             if not pull(pull_socket, game_round, box_id):
                 return False
+        return True
     except Exception as e:
         logging.error("An error occurred: %s", str(e))
         return False
