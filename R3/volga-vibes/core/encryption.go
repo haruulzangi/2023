@@ -7,6 +7,8 @@ import (
 	"fmt"
 )
 
+const tagSize = 16
+
 func (app *App) encryptData(plaintext []byte, round uint16) (ciphertext []byte, id []byte, err error) {
 	keyBuffer, err := app.keyEnclave.Open()
 	if err != nil {
@@ -24,7 +26,7 @@ func (app *App) encryptData(plaintext []byte, round uint16) (ciphertext []byte, 
 		return nil, nil, err
 	}
 
-	gcm, err := cipher.NewGCM(block)
+	gcm, err := cipher.NewGCMWithTagSize(block, tagSize)
 	if err != nil {
 		return nil, nil, err
 	}
