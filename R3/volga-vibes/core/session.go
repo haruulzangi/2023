@@ -100,8 +100,8 @@ func (app *App) handleSession(session *Session) {
 			}
 
 			expectedAuthTag := encryptedEnvelope[len(encryptedEnvelope)-tagSize:]
-			encryptedEnvelope = encryptedEnvelope[:len(encryptedEnvelope)-tagSize]
-			if err = session.sendMessage(encryptedEnvelope); err != nil {
+			encryptedEnvelopeData := encryptedEnvelope[:len(encryptedEnvelope)-tagSize]
+			if err = session.sendMessage(encryptedEnvelopeData); err != nil {
 				commandLogger.Error("Failed to send message: ", err)
 				return
 			}
