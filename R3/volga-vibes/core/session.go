@@ -120,6 +120,12 @@ func (app *App) handleSession(session *Session) {
 				commandLogger.Error("Failed to send message: ", err)
 				return
 			}
+		case "EXIT":
+			log.Trace("Received EXIT command")
+			if err = session.sendMessage([]byte("+")); err != nil {
+				logger.Error("Failed to send message: ", err)
+			}
+			return
 		default:
 			logger.Error("Unknown command: ", string(cmd))
 			return
