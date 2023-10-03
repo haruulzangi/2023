@@ -21,7 +21,7 @@ func (app *App) handleSession(session *Session) {
 			return
 		}
 
-		log.Trace("Received command: ", string(cmd))
+		log.Info("Received command: ", string(cmd))
 		switch string(cmd) {
 		case "PING":
 			err = session.sendMessage([]byte("PONG"))
@@ -38,11 +38,13 @@ func (app *App) handleSession(session *Session) {
 				return
 			}
 			round := binary.BigEndian.Uint16(roundBytes)
+			commandLogger.Trace("Receiving flag for round ", round)
 			envelope, err := session.readMessage()
 			if err != nil {
 				commandLogger.Error("Failed to read message: ", err)
 				return
 			}
+			commandLogger.Trace("Received envelope: ", hex.EncodeToString(envelope))
 
 			encryptedEnvelope, id, err := app.encryptData(envelope, round)
 			if err != nil {
@@ -50,6 +52,8 @@ func (app *App) handleSession(session *Session) {
 				session.sendMessage([]byte("-"))
 				return
 			}
+			commandLogger.Trace("Encrypted envelope: ", hex.EncodeToString(encryptedEnvelope))
+			commandLogger.Trace("ID: ", hex.EncodeToString(id))
 			if err = session.sendMessage(encryptedEnvelope); err != nil {
 				commandLogger.Error("Failed to send message: ", err)
 				return
@@ -60,21 +64,22 @@ func (app *App) handleSession(session *Session) {
 			}
 
 			peerCert := session.conn.ConnectionState().PeerCertificates[0]
-			if len(peerCert.EmailAddresses) == 0 || peerCert.EmailAddresses[0] != "checker@final.haruulzangi.mn" {
-				session.sendMessage([]byte("-"))
-				return
-			}
-			if err = app.saveEnvelope(id, encryptedEnvelope); err != nil {
-				commandLogger.Error("Failed to save envelope: ", err)
-				session.sendMessage([]byte("ERROR"))
-				return
-			}
+			if len(peerCert.EmailAddresses) > 0 && peerCert.EmailAddresses[0] == "checker@final.haruulzangi.mn" {
+				if err = app.saveEnvelope(id, encryptedEnvelope); err != nil {
+					commandLogger.Error("Failed to save envelope: ", err)
+					session.sendMessage([]byte("ERROR"))
+					return
+				}
 
-			if err = session.sendMessage([]byte("+")); err != nil {
-				commandLogger.Error("Failed to send message: ", err)
-				return
+				if err = session.sendMessage([]byte("+")); err != nil {
+					commandLogger.Error("Failed to send message: ", err)
+					return
+				}
+				commandLogger.Info("Data saved for round ", round)
+			} else {
+				commandLogger.Trace("Rejecting data from unknown peer")
+				session.sendMessage([]byte("-"))
 			}
-			commandLogger.Info("Data saved for round ", round)
 		case "PULL":
 			commandLogger := logger.WithField("command", "PULL")
 
