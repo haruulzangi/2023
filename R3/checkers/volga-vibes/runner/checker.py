@@ -71,11 +71,16 @@ def push(socket: Socket, game_round: int, flag: str, box_id: str) -> bool:
         socket.send_message(b"PUSH")
         socket.send_message(struct.pack(">H", game_round))
         socket.send_message(flag.encode())
+
         encrypted_envelope = socket.read_message()
+        if len(encrypted_envelope) < len(flag) + tag_size:
+            logging.error(f"Invalid ciphertext received from {box_id}")
+            return False
         flag_id = socket.read_message()
         if len(flag_id) != 16:
             logging.error(f"Invalid ID received from {box_id}")
             return False
+
         if socket.read_message() != b"+":
             logging.error(f"Invalid response received from {box_id}")
             return False
@@ -99,18 +104,49 @@ def push(socket: Socket, game_round: int, flag: str, box_id: str) -> bool:
         return False
 
 
+def push_unauthorized(socket: Socket, game_round: int, flag: str, box_id: str) -> bool:
+    logging.info(f"Pushing flag for round {game_round} for {box_id} without auth")
+    try:
+        socket.send_message(b"PUSH")
+        socket.send_message(struct.pack(">H", game_round))
+        socket.send_message(flag.encode())
+
+        encrypted_envelope = socket.read_message()
+        if len(encrypted_envelope) < len(flag) + tag_size:
+            logging.error(f"Invalid ciphertext received from {box_id}")
+            return False
+
+        flag_id = socket.read_message()
+        if len(flag_id) != 16:
+            logging.error(f"Invalid ID received from {box_id}")
+            return False
+
+        if socket.read_message() != b"-":
+            logging.error(f"Invalid response received from {box_id}")
+            return False
+        return True
+    except Exception as e:
+        logging.error(f"An error occurred: {str(e)}")
+        return False
+
+
 def _run_check(host: str, port: int, game_round: int, box_id: str, flag: str):
     try:
-        with Socket(host, port, role="checker") as push_socket:
-            if not push(push_socket, game_round, flag, box_id):
+        with Socket(host, port, role="checker") as checker_conn:
+            if not push(checker_conn, game_round, flag, box_id):
                 return False
-            push_socket.send_message(b"EXIT")
-            if push_socket.read_message() != b"+":
+            checker_conn.send_message(b"EXIT")
+            if checker_conn.read_message() != b"+":
                 return False
-        with Socket(host, port, role="host") as pull_socket:
-            if game_round > 1 and not pull(pull_socket, game_round - 1, box_id):
+        with Socket(host, port, role="host") as host_conn:
+            if game_round > 1 and not pull(host_conn, game_round - 1, box_id):
                 return False
-            if not pull(pull_socket, game_round, box_id):
+            if not pull(host_conn, game_round, box_id):
+                return False
+            if not pull(host_conn, game_round + 1, box_id):
+                return False
+            host_conn.send_message(b"EXIT")
+            if host_conn.read_message() != b"+":
                 return False
         return True
     except Exception as e:
