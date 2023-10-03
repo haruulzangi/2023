@@ -70,6 +70,11 @@ func (app *App) handleSession(session *Session) {
 				session.sendMessage([]byte("-"))
 				return
 			}
+
+			if err = session.sendMessage([]byte("+")); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
 			commandLogger.Info("Data saved for round ", round)
 		case "PULL":
 			log.Trace("Received PULL command")
