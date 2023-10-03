@@ -1,45 +1,35 @@
 package core
 
 import (
-	"encoding/binary"
-	"net"
+	"io"
+
+	log "github.com/sirupsen/logrus"
 )
 
-type Session struct{ conn net.Conn }
+func (app *App) handleSession(session *Session) {
+	remoteAddr := session.conn.RemoteAddr().String()
 
-func (s *Session) sendMessage(data []byte) error {
-	size := len(data)
-	if err := binary.Write(s.conn, binary.BigEndian, uint32(size)); err != nil {
-		return err
-	}
-
-	written := 0
-	for written < size {
-		n, err := s.conn.Write(data[written:])
+	log.WithField("address", remoteAddr).Info("New connection")
+	for {
+		cmd, err := session.readMessage()
 		if err != nil {
-			return err
+			if err != io.EOF {
+				log.WithField("address", remoteAddr).Error("Failed to read message: ", err)
+			}
+			return
 		}
-		written += n
-	}
 
-	return nil
-}
-
-func (s *Session) readMessage() ([]byte, error) {
-	var size uint32
-	if err := binary.Read(s.conn, binary.BigEndian, &size); err != nil {
-		return nil, err
-	}
-
-	data := make([]byte, size)
-	read := 0
-	for read < int(size) {
-		n, err := s.conn.Read(data[read:])
-		if err != nil {
-			return nil, err
+		log.Trace("Received command: ", string(cmd))
+		switch string(cmd) {
+		case "PING":
+			err = session.sendMessage([]byte("PONG"))
+			if err != nil {
+				log.WithField("address", remoteAddr).Error("Failed to send message: ", err)
+				return
+			}
+		default:
+			log.WithField("address", remoteAddr).Error("Unknown command: ", string(cmd))
+			return
 		}
-		read += n
 	}
-
-	return data, nil
 }
