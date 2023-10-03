@@ -3,6 +3,7 @@ import struct
 import sqlite3
 import logging
 import requests
+from typing import Optional
 from .socket import Socket
 
 db = sqlite3.connect("volga-vibes-checker.sqlite3", check_same_thread=False)
@@ -123,7 +124,7 @@ def run_checker(
     box_id: str,
     challenge_id: str,
     flag: str,
-    auth_token: str,
+    auth_token: Optional[str] = None,
 ):
     logging.info(f"Starting Round {game_round}")
     try:
@@ -132,6 +133,9 @@ def run_checker(
             logging.info(f"Box {box_id} is UP")
         else:
             logging.info(f"Box {box_id} is DOWN")
+        if not auth_token:
+            logging.info("API_AUTH_TOKEN is not set, skipping API call")
+            return
         resp = requests.post(
             f"{os.getenv('API_BASE_URL')}/down",
             headers={"Authorization": auth_token, "Content-Type": "application/json"},
