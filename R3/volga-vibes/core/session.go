@@ -7,14 +7,13 @@ import (
 )
 
 func (app *App) handleSession(session *Session) {
-	remoteAddr := session.conn.RemoteAddr().String()
-
-	log.WithField("address", remoteAddr).Info("New connection")
+	logger := log.WithField("address", session.conn.RemoteAddr().String())
+	logger.Info("New connection")
 	for {
 		cmd, err := session.readMessage()
 		if err != nil {
 			if err != io.EOF {
-				log.WithField("address", remoteAddr).Error("Failed to read message: ", err)
+				logger.Error("Failed to read message: ", err)
 			}
 			return
 		}
@@ -22,13 +21,18 @@ func (app *App) handleSession(session *Session) {
 		log.Trace("Received command: ", string(cmd))
 		switch string(cmd) {
 		case "PING":
+			log.Trace("Received PING command")
 			err = session.sendMessage([]byte("PONG"))
 			if err != nil {
-				log.WithField("address", remoteAddr).Error("Failed to send message: ", err)
+				logger.Error("Failed to send message: ", err)
 				return
 			}
+		case "PUSH":
+			log.Trace("Received PUSH command")
+		case "PULL":
+			log.Trace("Received PULL command")
 		default:
-			log.WithField("address", remoteAddr).Error("Unknown command: ", string(cmd))
+			logger.Error("Unknown command: ", string(cmd))
 			return
 		}
 	}
