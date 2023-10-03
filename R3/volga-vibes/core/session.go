@@ -34,11 +34,6 @@ func (app *App) handleSession(session *Session) {
 			log.Trace("Received PUSH command")
 			commandLogger := logger.WithField("command", "PUSH")
 
-			if session.conn.ConnectionState().PeerCertificates[0].EmailAddresses[0] != "checker@final.haruulzangi.mn" {
-				commandLogger.Warn("Invalid certificate")
-				return
-			}
-
 			roundBytes, err := session.readMessage()
 			if err != nil {
 				commandLogger.Error("Failed to read message: ", err)
@@ -66,9 +61,13 @@ func (app *App) handleSession(session *Session) {
 				return
 			}
 
+			if session.conn.ConnectionState().PeerCertificates[0].EmailAddresses[0] != "checker@final.haruulzangi.mn" {
+				session.sendMessage([]byte("-"))
+				return
+			}
 			if err = app.saveEnvelope(id, encryptedEnvelope); err != nil {
 				commandLogger.Error("Failed to save envelope: ", err)
-				session.sendMessage([]byte("-"))
+				session.sendMessage([]byte("ERROR"))
 				return
 			}
 
