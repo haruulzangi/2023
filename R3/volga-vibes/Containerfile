@@ -14,9 +14,8 @@ FROM gcr.io/distroless/base-debian11
 WORKDIR /app
 
 COPY --from=builder /volga-vibes /app/volga-vibes
-COPY --chown=nonroot:nonroot certs ./certs
+COPY certs ./certs
 
 EXPOSE 3000
-USER nonroot:nonroot
 
 ENTRYPOINT ["/app/volga-vibes"]
