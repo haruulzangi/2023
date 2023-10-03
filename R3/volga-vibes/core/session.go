@@ -3,6 +3,7 @@ package core
 import (
 	"crypto/subtle"
 	"encoding/binary"
+	"encoding/hex"
 	"io"
 
 	log "github.com/sirupsen/logrus"
@@ -117,7 +118,8 @@ func (app *App) handleSession(session *Session) {
 				commandLogger.Error("Failed to read message: ", err)
 				return
 			}
-			if subtle.ConstantTimeCompare(receivedAuthTag, expectedAuthTag) != 0 {
+			commandLogger.Tracef("Received authentication tag %s, expected %s", hex.EncodeToString(receivedAuthTag), hex.EncodeToString(expectedAuthTag))
+			if subtle.ConstantTimeCompare(receivedAuthTag, expectedAuthTag) != 1 {
 				commandLogger.Error("Invalid authentication tag")
 				session.sendMessage([]byte("-"))
 				return
