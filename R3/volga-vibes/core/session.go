@@ -1,6 +1,8 @@
 package core
 
 import (
+	"crypto/subtle"
+	"encoding/binary"
 	"io"
 
 	log "github.com/sirupsen/logrus"
@@ -29,8 +31,95 @@ func (app *App) handleSession(session *Session) {
 			}
 		case "PUSH":
 			log.Trace("Received PUSH command")
+			commandLogger := logger.WithField("command", "PUSH")
+
+			if session.conn.ConnectionState().PeerCertificates[0].EmailAddresses[0] != "checker@final.haruulzangi.mn" {
+				commandLogger.Warn("Invalid certificate")
+				return
+			}
+
+			roundBytes, err := session.readMessage()
+			if err != nil {
+				commandLogger.Error("Failed to read message: ", err)
+				return
+			}
+			round := binary.BigEndian.Uint16(roundBytes)
+			envelope, err := session.readMessage()
+			if err != nil {
+				commandLogger.Error("Failed to read message: ", err)
+				return
+			}
+
+			encryptedEnvelope, id, err := app.encryptData(envelope, round)
+			if err != nil {
+				commandLogger.Error("Failed to encrypt data: ", err)
+				session.sendMessage([]byte("-"))
+				return
+			}
+			if err = session.sendMessage(encryptedEnvelope); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
+			if err = session.sendMessage(id); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
+
+			if err = app.saveEnvelope(id, encryptedEnvelope); err != nil {
+				commandLogger.Error("Failed to save envelope: ", err)
+				session.sendMessage([]byte("-"))
+				return
+			}
+			commandLogger.Info("Data saved for round ", round)
 		case "PULL":
 			log.Trace("Received PULL command")
+			commandLogger := logger.WithField("command", "PULL")
+
+			roundBytes, err := session.readMessage()
+			if err != nil {
+				commandLogger.Error("Failed to read message: ", err)
+				return
+			}
+			id, encryptedEnvelope, err := app.getEnvelope(roundBytes)
+			if err != nil {
+				commandLogger.Error("Failed to get envelope: ", err)
+				session.sendMessage([]byte("ERROR"))
+				return
+			}
+
+			if err = session.sendMessage(id); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
+
+			expectedAuthTag := encryptedEnvelope[len(encryptedEnvelope)-tagSize:]
+			encryptedEnvelope = encryptedEnvelope[:len(encryptedEnvelope)-tagSize]
+			if err = session.sendMessage(encryptedEnvelope); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
+			plaintext, err := app.decryptData(encryptedEnvelope, id)
+			if err != nil {
+				commandLogger.Error("Failed to decrypt data: ", err)
+				session.sendMessage([]byte("ERROR"))
+				return
+			}
+
+			receivedAuthTag, err := session.readMessage()
+			if err != nil {
+				commandLogger.Error("Failed to read message: ", err)
+				return
+			}
+			if subtle.ConstantTimeCompare(receivedAuthTag, expectedAuthTag) != 0 {
+				commandLogger.Error("Invalid authentication tag")
+				session.sendMessage([]byte("-"))
+				return
+			}
+
+			if err = session.sendMessage(plaintext); err != nil {
+				commandLogger.Error("Failed to send message: ", err)
+				return
+			}
 		default:
 			logger.Error("Unknown command: ", string(cmd))
 			return
