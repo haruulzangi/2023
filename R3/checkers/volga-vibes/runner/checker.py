@@ -6,16 +6,11 @@ import requests
 from typing import Optional
 from .socket import Socket
 
-db = sqlite3.connect("volga-vibes-checker.sqlite3", check_same_thread=False)
-db.execute(
-    "CREATE TABLE IF NOT EXISTS flags (round INT, flag TEXT, flag_id BLOB, ciphertext BLOB, box_id TEXT)"
-)
-
 tag_size = 16
 timeout = 5
 
 
-def pull(socket: Socket, game_round: int, box_id: str) -> bool:
+def pull(db: sqlite3.Connection, socket: Socket, game_round: int, box_id: str) -> bool:
     logging.info(f"Pulling flag for round {game_round} for {box_id}")
     try:
         socket.send_message(b"PULL")
@@ -57,7 +52,9 @@ def pull(socket: Socket, game_round: int, box_id: str) -> bool:
         return False
 
 
-def push(socket: Socket, game_round: int, flag: str, box_id: str) -> bool:
+def push(
+    db: sqlite3.Connection, socket: Socket, game_round: int, flag: str, box_id: str
+) -> bool:
     logging.info(f"Pushing flag for round {game_round} for {box_id}")
     try:
         count = db.execute(
@@ -130,31 +127,40 @@ def push_unauthorized(socket: Socket, game_round: int, flag: str, box_id: str) -
         return False
 
 
-def _run_check(host: str, port: int, game_round: int, box_id: str, flag: str):
+def _run_check(
+    db: sqlite3.Connection,
+    host: str,
+    port: int,
+    game_round: int,
+    box_id: str,
+    flag: str,
+):
     try:
         with Socket(host, port, role="checker") as checker_conn:
-            if not push(checker_conn, game_round, flag, box_id):
+            if not push(db, checker_conn, game_round, flag, box_id):
                 return False
             checker_conn.send_message(b"EXIT")
             if checker_conn.read_message() != b"+":
                 return False
         with Socket(host, port, role="host") as host_conn:
-            if game_round > 1 and not pull(host_conn, game_round - 1, box_id):
+            if game_round > 1 and not pull(db, host_conn, game_round - 1, box_id):
                 return False
-            if not pull(host_conn, game_round, box_id):
+            if not pull(db, host_conn, game_round, box_id):
                 return False
-            if not pull(host_conn, game_round + 1, box_id):
+            if not pull(db, host_conn, game_round + 1, box_id):
                 return False
             host_conn.send_message(b"EXIT")
             if host_conn.read_message() != b"+":
                 return False
         return True
     except Exception as e:
-        logging.error("An error occurred: %s", str(e))
+        logging.error("An error occurred: %s, traceback:", str(e))
+        print(e)
         return False
 
 
 def run_checker(
+    db: sqlite3.Connection,
     host: str,
     port: int,
     game_round: int,
@@ -164,7 +170,7 @@ def run_checker(
     auth_token: Optional[str] = None,
 ):
     try:
-        status = _run_check(host, port, game_round, box_id, flag)
+        status = _run_check(db, host, port, game_round, box_id, flag)
         if status:
             logging.info(f"Box {box_id} is UP")
         else:

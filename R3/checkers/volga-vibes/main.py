@@ -15,11 +15,17 @@ logging.basicConfig(
 from runner.checker import run_checker
 
 import os
+import sqlite3
 import requests
 import threading
 
 
 def main():
+    db = sqlite3.connect("volga-vibes-checker.sqlite3", check_same_thread=False)
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS flags (round INT, flag TEXT, flag_id BLOB, ciphertext BLOB, box_id TEXT)"
+    )
+
     auth_token = os.getenv("API_AUTH_TOKEN")
     if not auth_token:
         raise Exception("API_AUTH_TOKEN is not set")
@@ -42,7 +48,7 @@ def main():
             flag = box["flag"]
             thread = threading.Thread(
                 target=run_checker,
-                args=(host, port, game_round, box_id, challenge_id, flag, auth_token),
+                args=(db, host, port, game_round, box_id, challenge_id, flag, auth_token),
             )
             thread.start()
             threads.append(thread)
