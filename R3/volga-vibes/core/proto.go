@@ -1,11 +1,11 @@
 package core
 
 import (
+	"crypto/tls"
 	"encoding/binary"
-	"net"
 )
 
-type Session struct{ conn net.Conn }
+type Session struct{ conn *tls.Conn }
 
 func (s *Session) sendMessage(data []byte) error {
 	size := len(data)
