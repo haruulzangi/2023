@@ -149,6 +149,8 @@ def _run_check(
                 return False
             if not pull(db, host_conn, game_round + 1, box_id):
                 return False
+            if not push_unauthorized(host_conn, game_round, flag, box_id):
+                return False
             host_conn.send_message(b"EXIT")
             if host_conn.read_message() != b"+":
                 return False
