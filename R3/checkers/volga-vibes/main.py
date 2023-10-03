@@ -1,3 +1,13 @@
+import logging
+
+logging.basicConfig(
+    filename="./logs/log_volga_vibes.log",
+    filemode="a",
+    format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+    datefmt="%H:%M:%S",
+    level=logging.DEBUG,
+)
+
 from enum import Enum
 from runner.socket import Socket
 
