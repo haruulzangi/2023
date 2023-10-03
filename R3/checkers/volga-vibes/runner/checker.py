@@ -126,7 +126,6 @@ def run_checker(
     flag: str,
     auth_token: Optional[str] = None,
 ):
-    logging.info(f"Starting Round {game_round}")
     try:
         status = _run_check(host, port, game_round, box_id, flag)
         if status:
