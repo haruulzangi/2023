@@ -24,14 +24,12 @@ func (app *App) handleSession(session *Session) {
 		log.Trace("Received command: ", string(cmd))
 		switch string(cmd) {
 		case "PING":
-			log.Trace("Received PING command")
 			err = session.sendMessage([]byte("PONG"))
 			if err != nil {
 				logger.Error("Failed to send message: ", err)
 				return
 			}
 		case "PUSH":
-			log.Trace("Received PUSH command")
 			commandLogger := logger.WithField("command", "PUSH")
 
 			roundBytes, err := session.readMessage()
@@ -78,7 +76,6 @@ func (app *App) handleSession(session *Session) {
 			}
 			commandLogger.Info("Data saved for round ", round)
 		case "PULL":
-			log.Trace("Received PULL command")
 			commandLogger := logger.WithField("command", "PULL")
 
 			roundBytes, err := session.readMessage()
