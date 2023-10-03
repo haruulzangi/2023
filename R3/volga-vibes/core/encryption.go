@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-func (app *App) encryptData(plaintext []byte, round int) (ciphertext []byte, id []byte, err error) {
+func (app *App) encryptData(plaintext []byte, round uint16) (ciphertext []byte, id []byte, err error) {
 	keyBuffer, err := app.keyEnclave.Open()
 	if err != nil {
 		return nil, nil, err
