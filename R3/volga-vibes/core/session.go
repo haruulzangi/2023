@@ -85,7 +85,9 @@ func (app *App) handleSession(session *Session) {
 				commandLogger.Error("Failed to read message: ", err)
 				return
 			}
-			id, encryptedEnvelope, err := app.getEnvelope(roundBytes)
+			round := binary.BigEndian.Uint16(roundBytes)
+
+			id, encryptedEnvelope, err := app.getEnvelope(round)
 			if err != nil {
 				commandLogger.Error("Failed to get envelope: ", err)
 				session.sendMessage([]byte("ERROR"))
