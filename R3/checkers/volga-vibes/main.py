@@ -12,29 +12,44 @@ logging.basicConfig(
     level=logging.DEBUG,
 )
 
-from enum import Enum
-from runner.socket import Socket
+from runner.checker import run_checker
 
-
-class ServiceStatus(Enum):
-    UP = 0
-    DOWN = 3
-
-
-def check(host: str, port: int) -> ServiceStatus:
-    try:
-        with Socket(host, port) as sock:
-            sock.send_message(b"PING")
-            response = sock.read_message()
-            if response != b"PONG":
-                return ServiceStatus.DOWN
-            return ServiceStatus.DOWN
-    except Exception:
-        return ServiceStatus.DOWN
+import os
+import requests
+import threading
 
 
 def main():
-    raise Exception("Not implemented yet")
+    auth_token = os.getenv("API_AUTH_TOKEN")
+    if not auth_token:
+        raise Exception("API_AUTH_TOKEN is not set")
+    flags_response = requests.get(
+        f"{os.getenv('API_BASE_URL')}/getFlags",
+        headers={"Authorization": auth_token},
+    )
+    try:
+        game_boxes = filter(
+            lambda data: data["challenge"]["port"] == os.getenv("CHALLENGE_PORT"),
+            flags_response.json()["flags"],
+        )
+        threads = []
+        for box in game_boxes:
+            host = box["gamebox_id"]["ip"]
+            port = int(box["challenge"]["port"])
+            game_round = box["round"]
+            box_id = box["gamebox_id"]["_id"]
+            challenge_id = box["challenge"]["_id"]
+            flag = box["flag"]
+            thread = threading.Thread(
+                target=run_checker,
+                args=(host, port, game_round, box_id, challenge_id, flag),
+            )
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
+    except:
+        logging.error("Can't get flags, probably game was not started")
 
 
 if __name__ == "__main__":
