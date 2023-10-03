@@ -61,7 +61,8 @@ func (app *App) handleSession(session *Session) {
 				return
 			}
 
-			if session.conn.ConnectionState().PeerCertificates[0].EmailAddresses[0] != "checker@final.haruulzangi.mn" {
+			peerCert := session.conn.ConnectionState().PeerCertificates[0]
+			if len(peerCert.EmailAddresses) == 0 || peerCert.EmailAddresses[0] != "checker@final.haruulzangi.mn" {
 				session.sendMessage([]byte("-"))
 				return
 			}
