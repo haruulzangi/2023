@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/awnumar/memguard"
 	"github.com/haruulzangi/2023/R3/volga-vibes/core"
 	log "github.com/sirupsen/logrus"
 )
@@ -52,6 +53,7 @@ func main() {
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
+	defer memguard.Purge()
 
 	err = app.ListenAndServe(ctx, fmt.Sprintf("%s:%s", host, port), tlsConfig)
 	if err != nil {
