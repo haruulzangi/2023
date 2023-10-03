@@ -6,9 +6,11 @@ import struct
 class Socket:
     _socket: socket.socket
     connection: ssl.SSLSocket
+    timeout = 5
 
-    def __init__(self, host: str, port: int, role = 'checker'):
+    def __init__(self, host: str, port: int, role="checker"):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(self.timeout)
         sock.connect((host, port))
 
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
