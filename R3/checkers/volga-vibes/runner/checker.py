@@ -3,7 +3,7 @@ import struct
 import sqlite3
 import logging
 import requests
-from typing import Optional
+from typing import Tuple, Optional
 from .socket import Socket
 
 tag_size = 16
@@ -138,29 +138,29 @@ def _run_check(
     game_round: int,
     box_id: str,
     flag: str,
-):
+) -> Tuple[bool, str]:
     try:
         with Socket(host, port, role="checker") as checker_conn:
             if not push(db, checker_conn, game_round, flag, box_id):
-                return False
+                return False, "push"
             checker_conn.send_message(b"EXIT")
             if checker_conn.read_message() != b"+":
-                return False
+                return False, "push-exit"
         with Socket(host, port, role="host") as host_conn:
             if game_round > 1 and not pull(db, host_conn, game_round - 1, box_id):
-                return False
+                return False, "pull-prev"
             if not pull(db, host_conn, game_round, box_id):
-                return False
+                return False, "pull-current"
             if not push_unauthorized(host_conn, game_round, flag, box_id):
-                return False
+                return False, "pull-unauthorized"
             host_conn.send_message(b"EXIT")
             if host_conn.read_message() != b"+":
-                return False
-        return True
+                return False, "pull-exit"
+        return True, "ok"
     except Exception as e:
         logging.error("An error occurred: %s, traceback:", str(e))
         print(e)
-        return False
+        return False, "error"
 
 
 def run_checker(
@@ -174,11 +174,11 @@ def run_checker(
     auth_token: Optional[str] = None,
 ):
     try:
-        status = _run_check(db, host, port, game_round, box_id, flag)
+        status, reason = _run_check(db, host, port, game_round, box_id, flag)
         if status:
             logging.info(f"Box {box_id} is UP")
         else:
-            logging.info(f"Box {box_id} is DOWN")
+            logging.info(f"Box {box_id} is DOWN, reason: {reason}")
         if not auth_token:
             logging.info("API_AUTH_TOKEN is not set, skipping API call")
             return
