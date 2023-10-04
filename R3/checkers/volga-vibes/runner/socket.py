@@ -38,8 +38,7 @@ class Socket:
 
     def send_message(self, data: bytes):
         size = len(data)
-        self.connection.sendall(struct.pack(">I", size))
-        self.connection.sendall(data)
+        self.connection.sendall(struct.pack(">I", size) + data)
 
     def read_message(self) -> bytes:
         size = struct.unpack(">I", self.connection.recv(4))[0]
