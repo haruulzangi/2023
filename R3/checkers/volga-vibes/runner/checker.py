@@ -35,6 +35,9 @@ def pull(db: sqlite3.Connection, socket: Socket, game_round: int, box_id: str) -
         auth_tag = ciphertext[-tag_size:]
         if encrypted_envelope != ciphertext[:-tag_size]:
             logging.error(f"Invalid ciphertext received from {box_id}")
+            logging.debug(
+                f"Got {encrypted_envelope.hex()}, expected {ciphertext[:-tag_size].hex()}"
+            )
             return False
 
         socket.send_message(auth_tag)
@@ -57,13 +60,10 @@ def push(
 ) -> bool:
     logging.info(f"Pushing flag for round {game_round} for {box_id}")
     try:
-        count = db.execute(
+        (count,) = db.execute(
             "SELECT COUNT(*) FROM flags WHERE round = ? AND box_id = ?",
             (game_round, box_id),
         ).fetchone()
-        if count[0] > 0:
-            logging.warn(f"Flag already pushed for {box_id}, skipping PUSH check")
-            return True
 
         socket.send_message(b"PUSH")
         socket.send_message(struct.pack(">H", game_round))
@@ -82,17 +82,19 @@ def push(
             logging.error(f"Invalid response received from {box_id}")
             return False
 
-        db.execute(
-            "INSERT INTO flags (round, flag, flag_id, ciphertext, box_id) VALUES (?, ?, ?, ?, ?)",
-            (
-                game_round,
-                flag,
-                flag_id,
-                encrypted_envelope,
-                box_id,
-            ),
-        )
-        db.commit()
+        if count == 0:
+            logging.debug(f"Saving flag for round {game_round}, box {box_id}")
+            db.execute(
+                "INSERT INTO flags (round, flag, flag_id, ciphertext, box_id) VALUES (?, ?, ?, ?, ?)",
+                (
+                    game_round,
+                    flag,
+                    flag_id,
+                    encrypted_envelope,
+                    box_id,
+                ),
+            )
+            db.commit()
 
         logging.info(f"Flag for round {game_round} pushed for {box_id}")
         return True
@@ -109,12 +111,14 @@ def push_unauthorized(socket: Socket, game_round: int, flag: str, box_id: str) -
         socket.send_message(flag.encode())
 
         encrypted_envelope = socket.read_message()
+        logging.debug(f"Received encrypted envelope: {encrypted_envelope.hex()}")
         if len(encrypted_envelope) < len(flag) + tag_size:
             logging.error(f"Invalid ciphertext received from {box_id}")
             return False
 
-        flag_id = socket.read_message()
-        if len(flag_id) != 16:
+        data_id = socket.read_message()
+        logging.debug(f"Received data ID: {data_id.hex()}")
+        if len(data_id) != 16:
             logging.error(f"Invalid ID received from {box_id}")
             return False
 
@@ -146,8 +150,6 @@ def _run_check(
             if game_round > 1 and not pull(db, host_conn, game_round - 1, box_id):
                 return False
             if not pull(db, host_conn, game_round, box_id):
-                return False
-            if not pull(db, host_conn, game_round + 1, box_id):
                 return False
             if not push_unauthorized(host_conn, game_round, flag, box_id):
                 return False
