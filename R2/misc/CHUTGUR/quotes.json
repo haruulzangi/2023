@@ -1,0 +1,835 @@
+[
+    {
+        "hero_name": "Abaddon",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The coils of life and death now bind us all. The fog of war is no match for the mist of fate."
+        }
+    },
+    {
+        "hero_name": "Alchemist",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "You have your marching orders! Aaand we’re off!"
+        }
+    },
+    {
+        "hero_name": "Ancient Apparition",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to break the ice!"
+        }
+    },
+    {
+        "hero_name": "Anti Mage",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Magic shall not prevail!"
+        }
+    },
+    {
+        "hero_name": "Arc Warden",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "This disharmony must resolve, or be crushed. Diruulth and Radinthul, your conflicts must be ended. The Self arrives at last. The destruction of the Ancients begins. u Their Ancient must shatter and burn. u Self will destroy the Radiant. u Great upheaval shall lay their Ancient to waste."
+        }
+    },
+    {
+        "hero_name": "Axe",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Let the carnage begin. There can be no battle till Axe is at hand. And Axe is."
+        }
+    },
+    {
+        "hero_name": "Bane",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I bring nightmares. Nya ha ha ha ha ha ha ha ha! A battle? I must be dreaming!"
+        }
+    },
+    {
+        "hero_name": "Batrider",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Ee-haw! That's my signal. Life just got interesting!"
+        }
+    },
+    {
+        "hero_name": "Beastmaster",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Unleash the beasts of war."
+        }
+    },
+    {
+        "hero_name": "Bloodseeker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The search for blood begins. Over the field of battle, the smell of blood rises like a promise. I love the smell of serum in the morning."
+        }
+    },
+    {
+        "hero_name": "Bounty Hunter",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "No job is too big, no fee is too big. The hunt is on."
+        }
+    },
+    {
+        "hero_name": "Brewmaster",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "There's trouble abrewing. Time to brawl. It's brawlin' time."
+        }
+    },
+    {
+        "hero_name": "Bristleback",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Oh, now we're in it. This is what I'm talking about, heh hah hah. Time to mash some faces, I'd say."
+        }
+    },
+    {
+        "hero_name": "Broodmother",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The hunt starts now."
+        }
+    },
+    {
+        "hero_name": "Centaur Warrunner",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "These proving grounds shall be littered with the dead. The tournament is mine."
+        }
+    },
+    {
+        "hero_name": "Chaos Knight",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "We descend into chaos."
+        }
+    },
+    {
+        "hero_name": "Chen",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The persecution starts now!"
+        }
+    },
+    {
+        "hero_name": "Clinkz",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The fire of war is set. The arrow of war is loosed."
+        }
+    },
+    {
+        "hero_name": "Clockwerk",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Much to do!"
+        }
+    },
+    {
+        "hero_name": "Crystal Maiden",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "It's all fun and games until someone's frozen solid."
+        }
+    },
+    {
+        "hero_name": "Dark Seer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Now it begins, I've seen the end."
+        }
+    },
+    {
+        "hero_name": "Dark Willow",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Come on Jex, we have work to do. Ohhhh I have chills...40% chance I don't need a horn to tell me when to fight"
+        }
+    },
+    {
+        "hero_name": "Dawnbreaker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Creatures of darkness, slither to what dank refuge you please. The light will find you. I honor the memories of the first Children of Light. Let's put some smiles on those faces. Or perhaps grimaces. It's very hard to tell. The star above is unknown to me. But it warms me just the same."
+        }
+    },
+    {
+        "hero_name": "Dazzle",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "My shadow leaps ahead!"
+        }
+    },
+    {
+        "hero_name": "Death Prophet",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "This augurs well for many deaths."
+        }
+    },
+    {
+        "hero_name": "Disruptor",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The war storm is upon us. The forecast calls for blood."
+        }
+    },
+    {
+        "hero_name": "Doom",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Face your demons. The fire starts now."
+        }
+    },
+    {
+        "hero_name": "Dragon Knight",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "On your guard.  The tournament commences."
+        }
+    },
+    {
+        "hero_name": "Drow Ranger",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I'm notched, I'm taut, I'm ready to fly. I have waited for this moment..."
+        }
+    },
+    {
+        "hero_name": "Earth Spirit",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Through conflict, one's nature is revealed. This beginning marks their end."
+        }
+    },
+    {
+        "hero_name": "Earthshaker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to shake things up and see where they settle. It's shake-time!"
+        }
+    },
+    {
+        "hero_name": "Elder Titan",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "On this alone of seven planes the final war is fought. What long ago I shattered must be rendered whole. The battle is joined, like the pieces of a broken world. u We are Foundation."
+        }
+    },
+    {
+        "hero_name": "Ember Spirit",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "They will learn balance. War's flames blaze again!"
+        }
+    },
+    {
+        "hero_name": "Enchantress",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Ready or not, here I come!"
+        }
+    },
+    {
+        "hero_name": "Enigma",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Conflict is eternal. No less so am I."
+        }
+    },
+    {
+        "hero_name": "Faceless Void",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time catches all."
+        }
+    },
+    {
+        "hero_name": "Grimstroke",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "My time comes. Theirs comes to an end. The portrait of this battle will be painted in blood. This world will never be the same."
+        }
+    },
+    {
+        "hero_name": "Gyrocopter",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "So much for my retirement! So much for being retired..."
+        }
+    },
+    {
+        "hero_name": "Hoodwink",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I don't see what all the fuss is about. For me the battle never stops. So we keeping score now? Gotcha. I don't know the rules, but I'll learn along the way. They say whoever wins this fight will get to call all the shots, but me, I don't want anybody calling the shots. There's something hauntingly familiar about all this. Step fast and shoot straight. It's gonna be a hell of a fight."
+        }
+    },
+    {
+        "hero_name": "Huskar",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Show me where I can do the most good."
+        }
+    },
+    {
+        "hero_name": "Invoker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "So begins a new age of knowledge."
+        }
+    },
+    {
+        "hero_name": "Jakiro",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "This is a game that two can play. Our war starts now."
+        }
+    },
+    {
+        "hero_name": "Juggernaut",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The time is upon us!  Put me in the vanguard."
+        }
+    },
+    {
+        "hero_name": "Keeper of the Light",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "A quest? A quest! A-questing I shall go!"
+        }
+    },
+    {
+        "hero_name": "Kunkka",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Run up the sail while we've got the tide! Rough seas ahead, crew. Strap me to the mizzen when I give the word."
+        }
+    },
+    {
+        "hero_name": "Legion Commander",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "If they want war, then we shall give it to them!"
+        }
+    },
+    {
+        "hero_name": "Leshrac",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I come to tip the balance!"
+        }
+    },
+    {
+        "hero_name": "Lich",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "And so the dead will bury the dead."
+        }
+    },
+    {
+        "hero_name": "Lifestealer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Oh Master, behold all these lives for the taking!"
+        }
+    },
+    {
+        "hero_name": "Lina",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The heat is on.One little spark and before you know it, the whole world is burning.It's fire time!"
+        }
+    },
+    {
+        "hero_name": "Lion",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Ooooh, time for strong-arm tactics."
+        }
+    },
+    {
+        "hero_name": "Lone Druid",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "No foe shall stand against my mission! u No foe shall stand against my mission! It has been too long since these bones felt combat. u It has been too long since these bones felt combat."
+        }
+    },
+    {
+        "hero_name": "Luna",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The Dark Moon comes. Watch over me, Goddess. It'll be a good show."
+        }
+    },
+    {
+        "hero_name": "Lycan",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Ha! The savagery starts now. The trails will run red."
+        }
+    },
+    {
+        "hero_name": "Magnus",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Horn calls to horn and it begins!"
+        }
+    },
+    {
+        "hero_name": "Mars",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "My battle...continues! At last... it comes to blows! Gods and men alike... Tremble!"
+        }
+    },
+    {
+        "hero_name": "Medusa",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Tremble, vermin, before the stony gaze of the Gorgon. Their deaths will be swift and cold as stone. Gaze upon Medusa's beauty, and despair!"
+        }
+    },
+    {
+        "hero_name": "Meepo",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Let's get this over with. I ain't leaving empty handed! Probably gonna dig a grave or two before this is done."
+        }
+    },
+    {
+        "hero_name": "Mirana",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Look how the prey scatters before us. At last it's time! Our time is at hand!"
+        }
+    },
+    {
+        "hero_name": "Monkey King",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Try to keep up.  Follow me, and see how it's done..  Where I go, an army follows."
+        }
+    },
+    {
+        "hero_name": "Morphling",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to test the waters."
+        }
+    },
+    {
+        "hero_name": "Naga Siren",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to sink or swim."
+        }
+    },
+    {
+        "hero_name": "Nature’s Prophet",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The season arrives!"
+        }
+    },
+    {
+        "hero_name": "Necrophos",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "No escape!"
+        }
+    },
+    {
+        "hero_name": "Night Stalker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "It's feeding time. And the hunt begins."
+        }
+    },
+    {
+        "hero_name": "Nyx Assassin",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "My purpose is clear, my targets doomed."
+        }
+    },
+    {
+        "hero_name": "Ogre Magi",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "What, it ain't started already? I thought it started."
+        }
+    },
+    {
+        "hero_name": "Omniknight",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The Omniscience may spare them, but I will not."
+        }
+    },
+    {
+        "hero_name": "Oracle",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The odds are with us. Or are they? A field rife with possibilities. Let's get the future off to a good start, hmm?"
+        }
+    },
+    {
+        "hero_name": "Outworld Destroyer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Their sanity I'll shatter, their dreams of conquest I'll destroy. I have solid intelligence on what is to come."
+        }
+    },
+    {
+        "hero_name": "Pangolier",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "And now, what we've all been waiting for. This is about to get interesting. Should I fail, my brothers would never forgive me."
+        }
+    },
+    {
+        "hero_name": "Phantom Assassin",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "My list has five names on it."
+        }
+    },
+    {
+        "hero_name": "Phantom Lancer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "We are coiled, ready to strike."
+        }
+    },
+    {
+        "hero_name": "Puck",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Ah, gambits and exploits await. I find myself strangely drawn to this odd configuration of activity."
+        }
+    },
+    {
+        "hero_name": "Pudge",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "So much meat, so little time. Look at all that meat just waiting to be carved."
+        }
+    },
+    {
+        "hero_name": "Pugna",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to earn myself a bad reputation."
+        }
+    },
+    {
+        "hero_name": "Queen of Pain",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Make way for your Queen."
+        }
+    },
+    {
+        "hero_name": "Wraith King",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The wraith war begins! Comes now the King of Wraiths! You've never known war unless you've warred with a Wraith! I'LL HELP MY WEAK AND PUNY ALLIES WHERE I CAN."
+        }
+    },
+    {
+        "hero_name": "Razor",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I enter the fray. Prepare the Underscape for fresh arrivals!"
+        }
+    },
+    {
+        "hero_name": "Riki",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Into the shadows."
+        }
+    },
+    {
+        "hero_name": "Rubick",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Hmmm. What a test this shall be."
+        }
+    },
+    {
+        "hero_name": "Sand King",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Finally. I am king now of all I survey."
+        }
+    },
+    {
+        "hero_name": "Shadow Demon",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I will scatter all who gather here today. Ozh domosh acha."
+        }
+    },
+    {
+        "hero_name": "Shadow Fiend",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Souls await!It's the perfect time to start a new collection!"
+        }
+    },
+    {
+        "hero_name": "Shadow Shaman",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Hear me, I speak for the shades!"
+        }
+    },
+    {
+        "hero_name": "Silencer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "A hush falls on the battlefield."
+        }
+    },
+    {
+        "hero_name": "Skywrath Mage",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I am sworn to turn the tide where ere I can. Even on this fallen field, I dedicate my powers to the lofty Skywrath."
+        }
+    },
+    {
+        "hero_name": "Slardar",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The deep ones send me forth."
+        }
+    },
+    {
+        "hero_name": "Slark",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Stay out of my way and maybe you won't get hurt, but I doubt it."
+        }
+    },
+    {
+        "hero_name": "Snapfire",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Battle's about to start. Hehe. This should be good. I usually try to outwit my foes, but gunning 'em down's just as good. Time to scratch that itch on my trigger finger. Who's making that gol-darn racket? Don't make me pull out my piece! Listen. Just cuz I turned over a new leaf doesn't mean I don't like killing people who really deserve it. Do this right and everything else is water under the bridge. Dust along the trail. And some other thing that's all said and done."
+        }
+    },
+    {
+        "hero_name": "Sniper",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time for target practice"
+        }
+    },
+    {
+        "hero_name": "Spectre",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Into disorder!"
+        }
+    },
+    {
+        "hero_name": "Spirit Breaker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The peace is broken!"
+        }
+    },
+    {
+        "hero_name": "Storm Spirit",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Storm clouds are gathering. You had better not start without me! Draw back the curtains, I'm here!"
+        }
+    },
+    {
+        "hero_name": "Sven",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I have waited long enough! There is no greater honor! The time has come."
+        }
+    },
+    {
+        "hero_name": "Techies",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Measurements made. Bombs built. Powder's dry. Okay, let's blow something up!"
+        }
+    },
+    {
+        "hero_name": "Templar Assassin",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Well that's it. The secret is out!"
+        }
+    },
+    {
+        "hero_name": "Terrorblade",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The marauders road is ever long. Terror steals across the land."
+        }
+    },
+    {
+        "hero_name": "Tidehunter",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The hunt begins. Let's catch this tide and catch them in it. We'll turn this tide to our advantage."
+        }
+    },
+    {
+        "hero_name": "Timbersaw",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "There are trees everywhere!"
+        }
+    },
+    {
+        "hero_name": "Tinker",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Conditions could hardly be more ideal!"
+        }
+    },
+    {
+        "hero_name": "Tiny",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Hard times coming!The road ahead looks rocky, but that's all right with me."
+        }
+    },
+    {
+        "hero_name": "Treant Protector",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The time has come, and will soon be gone."
+        }
+    },
+    {
+        "hero_name": "Troll Warlord",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The bell tolls for the lord of trolls."
+        }
+    },
+    {
+        "hero_name": "Tusk",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Who's ready for a fight? The first hit is free! Anyone?"
+        }
+    },
+    {
+        "hero_name": "Underlord",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "They will bleed, and they will burn. And they will learn fear. I will scorch this land and its people will come to fear a new master! Behold me and despair!"
+        }
+    },
+    {
+        "hero_name": "Undying",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Another corpse... on the battlefield."
+        }
+    },
+    {
+        "hero_name": "Ursa",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "We must meet this threat head-on!"
+        }
+    },
+    {
+        "hero_name": "Vengeful Spirit",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "The time has come! I fly on the winds of war! In I fly on the winds of vengeance!"
+        }
+    },
+    {
+        "hero_name": "Venomancer",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "To the fight."
+        }
+    },
+    {
+        "hero_name": "Viper",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "I fly the nest."
+        }
+    },
+    {
+        "hero_name": "Visage",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "None may flee death for long."
+        }
+    },
+    {
+        "hero_name": "Void Spirit",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "A single mistep could undo aeons of planning. Even I must be careful. I was always watching. Now I lend a hand. Everything is in place. Only one task remains. Now I lay their plans to waste. Now my plans will lay their plans to waste."
+        }
+    },
+    {
+        "hero_name": "Warlock",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Darkness stalks."
+        }
+    },
+    {
+        "hero_name": "Weaver",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Let's weave a battle plan."
+        }
+    },
+    {
+        "hero_name": "Windranger",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time for target practice. Ooh, now I get to shoot stuff!"
+        }
+    },
+    {
+        "hero_name": "Winter Wyvern",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Let them all fall still beneath my shadow!"
+        }
+    },
+    {
+        "hero_name": "Witch Doctor",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time for shots.."
+        }
+    },
+    {
+        "hero_name": "Zeus",
+        "voice_line": {
+            "action": "Beginning battle",
+            "quote": "Time to play god.  Let's make this a battle worthy of my name.  Ah these mortals and their futile games. Oh wait! I'm one of them! Hah ha ha ha ha!"
+        }
+    }
+]
