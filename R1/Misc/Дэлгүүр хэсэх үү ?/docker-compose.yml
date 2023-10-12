@@ -1,0 +1,15 @@
+services:
+  shop:
+    build: .
+    ports:
+      - "11001:11001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`shop.challenge.haruulzangi.mn`)"
+
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
